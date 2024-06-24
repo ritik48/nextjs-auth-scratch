@@ -1,6 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../models/user";
 import { cookies } from "next/headers";
+import { connectDb } from "./db";
 
 async function generateToken(id: string) {
     const token = await jwt.sign({ userId: id }, "secret");
@@ -9,6 +10,8 @@ async function generateToken(id: string) {
 }
 
 async function verifyToken() {
+    await connectDb();
+    
     const cookie = cookies();
     const token = cookie.get("token")?.value;
 
