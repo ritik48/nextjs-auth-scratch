@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const decoded_token = await verifyToken();
 
     return NextResponse.json(
-        { success: true, user: decoded_token },
+        { success: true, user: decoded_token.user },
         { status: 200 }
     );
 }

@@ -11,8 +11,6 @@ export async function POST(req: NextRequest) {
 
     const { email, password } = await req.json();
 
-    revalidatePath("/", "page");
-
     const user = await User.findOne({ email, password });
     if (!user) {
         return NextResponse.json(
@@ -23,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     const token = await generateToken(user._id);
     const response = NextResponse.json(
-        { success: true, message: "User logged in" },
+        { success: true, message: "User logged in", user },
         { status: 200 }
     );
 

@@ -11,7 +11,7 @@ async function generateToken(id: string) {
 
 async function verifyToken() {
     await connectDb();
-    
+
     const cookie = cookies();
     const token = cookie.get("token")?.value;
 
@@ -37,3 +37,19 @@ async function verifyToken() {
 }
 
 export { generateToken, verifyToken };
+
+// import { NextRequest, NextResponse } from "next/server";
+
+// export default async function middleware(req: NextRequest) {
+//     const token = req.cookies.get("token")?.value;
+
+//     if (!token) {
+//         return NextResponse.redirect(
+//             new URL(`/signin?error=Not Authenticated`, req.url)
+//         );
+//     }
+// }
+
+// export const config = {
+//     matcher: "/",
+// };

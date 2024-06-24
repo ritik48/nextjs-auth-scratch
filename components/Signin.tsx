@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@/app/context/userContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -9,6 +10,8 @@ export function Signin() {
     const [password, setPassword] = useState("");
 
     const router = useRouter();
+
+    const { setUserData } = useUser();
 
     async function handleSignup() {
         const res = await fetch("http://localhost:3000/api/user/signin", {
@@ -22,6 +25,8 @@ export function Signin() {
             return;
         }
         toast.success(data.message);
+        setUserData(true, data.user.email);
+        
         router.push("/");
     }
 
