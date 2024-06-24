@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export function Signup() {
     const [email, setEmail] = useState("");
@@ -18,10 +19,11 @@ export function Signup() {
         const data = await res.json();
 
         if (!res.ok) {
-            alert(data.message);
+            toast.error(data.message);
             return;
         }
 
+        toast.success(data.message);
         router.push("/");
     }
 

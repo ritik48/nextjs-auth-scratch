@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export function Signin() {
     const [email, setEmail] = useState("");
@@ -10,25 +11,24 @@ export function Signin() {
     const router = useRouter();
 
     async function handleSignup() {
-        // const res = await fetch("http://localhost:3000/api/user/signup", {
-        //     method: "POST",
-        //     body: JSON.stringify({ email, password }),
-        // });
-
-        // const data = await res.json();
-
-        // if (!res.ok) {
-        //     alert(data.message);
-        //     return;
-        // }
-
-        // router.push("/");
+        const res = await fetch("http://localhost:3000/api/user/signin", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        console.log(data);
+        if (!res.ok) {
+            toast.error(data.message);
+            return;
+        }
+        toast.success(data.message);
+        router.push("/");
     }
 
     return (
         <section className="mb-auto h-full flex justify-center mt-44">
             <div className="max-w-5xl gap-5 mx-auto flex flex-col items-center">
-                <h1 className="text-3xl font-bold">Create Account</h1>
+                <h1 className="text-3xl font-bold">Log in</h1>
                 <div className="flex flex-col gap-2">
                     <input
                         value={email}
